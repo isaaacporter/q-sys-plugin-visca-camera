@@ -1,10 +1,10 @@
 -- Information block for the plugin
 PluginInfo = {
   Name = "Cameras~Visca over IP",
-  Description = "Visca over IP",
+  Description = "VISCA over IP",
   Version = "1.1.0.0",
   BuildVersion = "1.1.0.0",
-  Id = "7e83ed10-69ac-11ed-a1eb-0242ac120002",
+  Id = "7c307beb-8afc-4029-9f5d-674baa4bd89d",
   Author = "Extrasolve, Isaac Porter",
 } 
 
