@@ -2,8 +2,8 @@
 PluginInfo = {
   Name = "Cameras~Visca over IP",
   Description = "VISCA over IP",
-  Version = "1.1.0.0",
-  BuildVersion = "1.1.0.0",
+  Version = "2.0.0.0",
+  BuildVersion = "2.0.0.0",
   Id = "7c307beb-8afc-4029-9f5d-674baa4bd89d",
   Author = "Extrasolve, Isaac Porter",
 } 
@@ -182,7 +182,7 @@ function GetControls(props)
   
   -- Connection ---------------------------------------------------------------
   table.insert(ctrls, {
-    Name = "system.online",
+    Name = "system_online",
     ControlType = "Indicator",
     IndicatorType = "Led",
     DefaultValue = false,
@@ -192,7 +192,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "system.ip.address",
+    Name = "system_ip_address",
     ControlType = "Text",
     DefaultValue = "127.0.0.1",
     UserPin = true,
@@ -200,7 +200,7 @@ function GetControls(props)
     Count = 1
   })
   table.insert(ctrls, {
-    Name = "system.ip.port",
+    Name = "system_ip_port",
     ControlType = "Knob",
     ControlUnit = "Integer",
     Min = 1,
@@ -213,7 +213,7 @@ function GetControls(props)
   
   -- PTZ ----------------------------------------------------------------------
   table.insert(ctrls, {
-    Name = "setup.pan.speed",
+    Name = "setup_pan_speed",
     ControlType = "Knob",
     ControlUnit = "Integer",
     Min = 1,
@@ -224,7 +224,7 @@ function GetControls(props)
     Count = 1
   })
   table.insert(ctrls, {
-    Name = "setup.tilt.speed",
+    Name = "setup_tilt_speed",
     ControlType = "Knob",
     ControlUnit = "Integer",
     Min = 1,
@@ -235,7 +235,7 @@ function GetControls(props)
     Count = 1
   })
   table.insert(ctrls, {
-    Name = "setup.zoom.speed",
+    Name = "setup_zoom_speed",
     ControlType = "Knob",
     ControlUnit = "Integer",
     Min = 0,
@@ -247,7 +247,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "preset.home.load",
+    Name = "preset_home_load",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -257,7 +257,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "tilt.up",
+    Name = "tilt_up",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -267,7 +267,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "tilt.down",
+    Name = "tilt_down",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -277,7 +277,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.left",
+    Name = "pan_left",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -287,7 +287,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.right",
+    Name = "pan_right",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -297,7 +297,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.right.tilt.up",
+    Name = "pan_right_tilt_up",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -309,7 +309,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.right.tilt.down",
+    Name = "pan_right_tilt_down",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -321,7 +321,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.left.tilt.down",
+    Name = "pan_left_tilt_down",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -333,7 +333,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "pan.left.tilt.up",
+    Name = "pan_left_tilt_up",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -345,7 +345,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "zoom.in",
+    Name = "zoom_in",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -355,7 +355,7 @@ function GetControls(props)
   })
   
   table.insert(ctrls, {
-    Name = "zoom.out",
+    Name = "zoom_out",
     ControlType = "Button",
     ButtonType = "Momentary",
     Count = 1,
@@ -366,7 +366,7 @@ function GetControls(props)
   
   -- Presets ------------------------------------------------------------------
   table.insert(ctrls, {
-    Name = "preset.saved",
+    Name = "preset_saved",
     ControlType = "Indicator",
     IndicatorType = "Led",
     DefaultValue = false,
@@ -377,7 +377,7 @@ function GetControls(props)
   
   for pst = 0, NumPresets - 1 do
     table.insert(ctrls, {
-      Name = "preset.recall." .. string.format("%03d",pst),
+      Name = "preset_recall_" .. string.format("%03d",pst),
       ControlType = "Button",
       ButtonType = "Momentary",
       Count = 1,
@@ -386,7 +386,7 @@ function GetControls(props)
       Icon = ""
     })
     table.insert(ctrls, {
-      Name = "preset.save." .. string.format("%03d",pst),
+      Name = "preset_save_" .. string.format("%03d",pst),
       ControlType = "Button",
       ButtonType = "Momentary",
       Count = 1,
@@ -484,7 +484,7 @@ function GetControlLayout(props)
     end
   
     -- Connection -------------------------------------------------------------
-    layout["system.online"] = {
+    layout["system_online"] = {
       PrettyName = "System~Online",
       Style = "Indicator",
       Color = {0, 255, 0},
@@ -504,7 +504,7 @@ function GetControlLayout(props)
       Position = {15, 74},
       Size = {62, h1}
     })
-    layout["system.ip.address"] = {
+    layout["system_ip_address"] = {
       PrettyName = "System~IP Address",
       Style = "Text",
       FontSize = fs1,
@@ -523,7 +523,7 @@ function GetControlLayout(props)
       Position = {184, 74},
       Size = {33, h1}
     })
-    layout["system.ip.port"] = {
+    layout["system_ip_port"] = {
       PrettyName = "System~IP Port",
       Style = "Text",
       Color = Palette.White,
@@ -554,7 +554,7 @@ function GetControlLayout(props)
       Position = {17, 153},
       Size = {17, 54}
     })
-    layout["setup.pan.speed"] = {
+    layout["setup_pan_speed"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Speed",
       Style = "Text",
       FontSize = fs1,
@@ -564,7 +564,7 @@ function GetControlLayout(props)
       Position = {37, 155},
       Size = {44, 18}
     }
-    layout["setup.tilt.speed"] = {
+    layout["setup_tilt_speed"] = {
       PrettyName = "Pan-Tilt-Zoom~Tilt Speed",
       Style = "Text",
       FontSize = fs1,
@@ -574,7 +574,7 @@ function GetControlLayout(props)
       Position = {37, 173},
       Size = {44, 18}
     }
-    layout["setup.zoom.speed"] = {
+    layout["setup_zoom_speed"] = {
       PrettyName = "Pan-Tilt-Zoom~Zoom Speed",
       Style = "Text",
       FontSize = fs1,
@@ -585,7 +585,7 @@ function GetControlLayout(props)
       Size = {44, 18}
     }
   
-    layout["preset.home.load"] = {
+    layout["preset_home_load"] = {
       PrettyName = "Pan-Tilt-Zoom~Home",
       Legend = "",
       Style = "Button",
@@ -594,7 +594,7 @@ function GetControlLayout(props)
       Position = {139, 150},
       Size = {h2, h2},
     }    
-    layout["tilt.up"] = {
+    layout["tilt_up"] = {
       PrettyName = "Pan-Tilt-Zoom~Tilt Up",
       Legend = "",
       Style = "Button",
@@ -603,7 +603,7 @@ function GetControlLayout(props)
       Position = {139, 118},
       Size = {h2, h2},
     }    
-    layout["tilt.down"] = {
+    layout["tilt_down"] = {
       PrettyName = "Pan-Tilt-Zoom~Tilt Down",
       Legend = "",
       Style = "Button",
@@ -612,7 +612,7 @@ function GetControlLayout(props)
       Position = {139, 182},
       Size = {h2, h2},
     }    
-    layout["pan.left"] = {
+    layout["pan_left"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Left",
       Legend = "",
       Style = "Button",
@@ -621,7 +621,7 @@ function GetControlLayout(props)
       Position = {107, 150},
       Size = {h2, h2},
     }    
-    layout["pan.right"] = {
+    layout["pan_right"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Right",
       Legend = "",
       Style = "Button",
@@ -630,7 +630,7 @@ function GetControlLayout(props)
       Position = {171, 150},
       Size = {h2, h2},
     }    
-    layout["pan.right.tilt.up"] = {
+    layout["pan_right_tilt_up"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Right / Tilt Up",
       Legend = "",
       Style = "Button",
@@ -639,7 +639,7 @@ function GetControlLayout(props)
       Position = {171, 118},
       Size = {h2, h2},
     }    
-    layout["pan.right.tilt.down"] = {
+    layout["pan_right_tilt_down"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Right / Tilt Down",
       Legend = "",
       Style = "Button",
@@ -648,7 +648,7 @@ function GetControlLayout(props)
       Position = {171, 182},
       Size = {h2, h2},
     }    
-    layout["pan.left.tilt.down"] = {
+    layout["pan_left_tilt_down"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Left / Tilt Down",
       Legend = "",
       Style = "Button",
@@ -657,7 +657,7 @@ function GetControlLayout(props)
       Position = {107, 182},
       Size = {h2, h2},
     }    
-    layout["pan.left.tilt.up"] = {
+    layout["pan_left_tilt_up"] = {
       PrettyName = "Pan-Tilt-Zoom~Pan Left / Tilt Up",
       Legend = "",
       Style = "Button",
@@ -666,7 +666,7 @@ function GetControlLayout(props)
       Position = {107, 118},
       Size = {h2, h2},
     }
-    layout["zoom.in"] = {
+    layout["zoom_in"] = {
       PrettyName = "Pan-Tilt-Zoom~Zoom In",
       Legend = "",
       Style = "Button",
@@ -675,7 +675,7 @@ function GetControlLayout(props)
       Position = {235, 133},
       Size = {h2, h2},
     }    
-    layout["zoom.out"] = {
+    layout["zoom_out"] = {
       PrettyName = "Pan-Tilt-Zoom~Zoom Out",
       Legend = "",
       Style = "Button",
@@ -687,7 +687,7 @@ function GetControlLayout(props)
   
     -- Presets ----------------------------------------------------------------
     
-    layout["PresetSaved"] = {
+    layout["preset_saved"] = {
     PrettyName = "Preset~Preset Saved",
     Style = "Indicator",
     Color = {255, 0, 0},
@@ -703,7 +703,7 @@ function GetControlLayout(props)
       local row = 1 + math.floor(pst / 8)
       local col = 1 + (pst % 8)
   
-      layout["preset.recall." .. string.format("%03d",pst)] = {
+      layout["preset_recall_" .. string.format("%03d",pst)] = {
         PrettyName = "Preset~Recall P" .. string.format("%03d", pst),
         Style = "Button",
         Margin = 4,
@@ -715,7 +715,7 @@ function GetControlLayout(props)
       }
   
       if props["Preset Hold Save"].Value == false then
-        layout["preset.save." .. string.format("%03d",pst)] = {
+        layout["preset_save_" .. string.format("%03d",pst)] = {
           PrettyName = "Preset~Save P" .. string.format("%03d", pst),
           Style = "Button",
           Margin = 4,
@@ -740,8 +740,8 @@ if Controls then
     UDP = UdpSocket.New()  -- Create new UdpSocket object
     UDPSocketOpen = false
   
-    IPAddressCtl = Controls["system.ip.address"]
-    IPPortCtl = Controls["system.ip.port"]
+    IPAddressCtl = Controls["system_ip_address"]
+    IPPortCtl = Controls["system_ip_port"]
   
     -- Map the UDP example properties to plugin properies
     IPAddress = IPAddressCtl.String
@@ -834,7 +834,7 @@ if Controls then
       if DebugFunction then print("Close() Called") end
       UDP:Close()
       UDPSocketOpen=false
-      Controls["system.online"].Boolean = false
+      Controls["system_online"].Boolean = false
   
       -- Stop any timers and clear data here
       CommsPollTimer:Stop()
@@ -857,7 +857,7 @@ if Controls then
     function UDP_Initialize()
       if DebugFunction then print("Initialize() Called") end
   
-      Controls["system.online"].Boolean = false
+      Controls["system_online"].Boolean = false
       
       IPAddress = IPAddressCtl.String
       Port = IPPortCtl.Value
@@ -887,9 +887,9 @@ if Controls then
     local NumPresets = Properties["Num Presets"].Value
     local PresetHoldTime = Properties["Preset Hold Time"].Value
     
-    local PanSpeed = Controls["setup.pan.speed"].Value
-    local TiltSpeed = Controls["setup.tilt.speed"].Value
-    local ZoomSpeed = Controls["setup.zoom.speed"].Value
+    local PanSpeed = Controls["setup_pan_speed"].Value
+    local TiltSpeed = Controls["setup_tilt_speed"].Value
+    local ZoomSpeed = Controls["setup_zoom_speed"].Value
   
     function HexToString(num, len)
       --Returns num as string of len * hex bytes
@@ -965,7 +965,7 @@ if Controls then
     PresetSaveTimer = Timer.New()
     function PresetSaveTimerHandler()
       PresetSaveTimer:Stop()
-      Controls["PresetSaved"].Boolean = false
+      Controls["preset_saved"].Boolean = false
     end
     PresetSaveTimer.EventHandler = PresetSaveTimerHandler
   
@@ -976,7 +976,7 @@ if Controls then
         VISCA("Cmd", string.char(0x81,0x01,0x04,0x3F,0x02,pst,0xff))
       elseif func == "Save" then
         VISCA("Cmd", string.char(0x81,0x01,0x04,0x3F,0x01,pst,0xff))
-        Controls["PresetSaved"].Boolean = true
+        Controls["preset_saved"].Boolean = true
         PresetSaveTimer:Start(0.5)
       end
     end
@@ -985,27 +985,27 @@ if Controls then
   
     for key, val in pairs(Controls) do
       -- PTZ ------------------------------------------------
-      if string.sub(key, -6, -1) == ".speed" then
+      if string.sub(key, -6, -1) == "_speed" then
         val.EventHandler = function()
-          PanSpeed = Controls["setup.pan.speed"].Value
-          TiltSpeed = Controls["setup.tilt.speed"].Value
-          ZoomSpeed = Controls["setup.zoom.speed"].Value
+          PanSpeed = Controls["setup_pan_speed"].Value
+          TiltSpeed = Controls["setup_tilt_speed"].Value
+          ZoomSpeed = Controls["setup_zoom_speed"].Value
           print("PTZ Speeds "..PanSpeed .. ", " .. TiltSpeed .. ", " .. ZoomSpeed)
         end      
-      elseif string.sub(key, 1, 4) == "pan." or 
-             string.sub(key, 1, 5) == "tilt." or 
-             string.sub(key, 1, 5) == "zoom." or
-             key == "preset.home.load" then
+      elseif string.sub(key, 1, 4) == "pan_" or
+             string.sub(key, 1, 5) == "tilt_" or
+             string.sub(key, 1, 5) == "zoom_" or
+             key == "preset_home_load" then
         val.EventHandler = function(ctl)
           if ctl.Boolean == true then
             PTZ_Control(key)
   
-          elseif key == "zoom.in" or 
-                 key == "zoom.out" then
-            PTZ_Control("zoom.stop")
+          elseif key == "zoom_in" or 
+                 key == "zoom_out" then
+            PTZ_Control("zoom_stop")
   
-          elseif key ~= "preset.home.load" then
-            PTZ_Control("pan.tilt.stop")
+          elseif key ~= "preset_home_load" then
+            PTZ_Control("pan_tilt_stop")
           end
         end
       end
@@ -1014,8 +1014,8 @@ if Controls then
     -- Presets ----------------------------------------------
     if NumPresets > 0 then
       for pst = 0, NumPresets - 1 do
-        local recallCtl = "preset.recall." .. string.format("%03d", pst)
-        local saveCtl = "preset.save." .. string.format("%03d", pst)
+        local recallCtl = "preset_recall_" .. string.format("%03d", pst)
+        local saveCtl = "preset_save_" .. string.format("%03d", pst)
   
         Controls[recallCtl].EventHandler = function()
           if Properties["Preset Hold Save"].Value == false then
@@ -1066,7 +1066,7 @@ if Controls then
     CommsTimeoutTimer = Timer.New()
     function CommsTimeout()
       CommsTimeoutTimer:Stop()
-      Controls["system.online"].Boolean = false
+      Controls["system_online"].Boolean = false
     end
     CommsTimeoutTimer.EventHandler = CommsTimeout
   
