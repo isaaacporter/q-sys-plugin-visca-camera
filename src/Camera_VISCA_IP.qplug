@@ -820,7 +820,7 @@ if Controls then
     function Send(command)
       if DebugFunction then print("Send() Called") end
       if UDPSocketOpen then
-        if DebugTx then print("Sending " .. IPAddress .. ":" .. Port .. " datagram: " .. command) end
+        if DebugRx then print("Sending " .. IPAddress .. ":" .. Port .. " datagram: " .. command)  end
         UDP:Send(IPAddress, Port, command)  -- Write command to the UDP socket
       else
         --If the socket is closed, open it and try again
@@ -848,7 +848,7 @@ if Controls then
       
       -- Handle response data here
       if string.sub(packet.Data, 1, 2) == "\x01\x11" then --Valid visca reply
-        Controls["system.online"].Boolean = true
+        Controls["system_online"].Boolean = true
         CommsTimeoutTimer:Start(PollInteval * 2.5)
       end
     end
@@ -938,23 +938,23 @@ if Controls then
       local PS = PanSpeed
       local TS = TiltSpeed
   
-      if     func == "preset.home.load" then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x04,0xff))
+      if     func == "preset_home_load" then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x04,0xff))
   
-      elseif func == "tilt.up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x01,0xff))
-      elseif func == "tilt.down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x02,0xff))
-      elseif func == "pan.left"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x03,0xff))
-      elseif func == "pan.right"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x03,0xff))
+      elseif func == "tilt_up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x01,0xff))
+      elseif func == "tilt_down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x02,0xff))
+      elseif func == "pan_left"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x03,0xff))
+      elseif func == "pan_right"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x03,0xff))
   
-      elseif func == "pan.right.tilt.up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x01,0xff))
-      elseif func == "pan.right.tilt.down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x02,0xff))
-      elseif func == "pan.left.tilt.down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x02,0xff))
-      elseif func == "pan.left.tilt.up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x01,0xff))
+      elseif func == "pan_right_tilt_up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x01,0xff))
+      elseif func == "pan_right_tilt_down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x02,0xff))
+      elseif func == "pan_left_tilt_down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x02,0xff))
+      elseif func == "pan_left_tilt_up"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x01,0xff))
   
-      elseif func == "zoom.in"   then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x20 + ZoomSpeed),0xff))
-      elseif func == "zoom.out"  then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x30 + ZoomSpeed),0xff))
+      elseif func == "zoom_in"   then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x20 + ZoomSpeed),0xff))
+      elseif func == "zoom_out"  then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x30 + ZoomSpeed),0xff))
   
-      elseif func == "pan.tilt.stop"  then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
-      elseif func == "zoom.stop"   then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,0x00,0xff))
+      elseif func == "pan_tilt_stop"  then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
+      elseif func == "zoom_stop"   then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,0x00,0xff))
       end
   
     end
