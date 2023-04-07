@@ -41,7 +41,7 @@ end
 
 -- The name that will initially display when dragged into a design
 function GetPrettyName(props)
-  return PluginInfo.Description .. " v" .. PluginInfo.Version --string.match(PluginInfo.BuildVersion, "([0-9]+.[0-9]+)") 
+  return "VISCA Camera v" .. PluginInfo.Version --string.match(PluginInfo.BuildVersion, "([0-9]+.[0-9]+)") 
 end
 
 -- Optional function used if plugin has multiple pages
