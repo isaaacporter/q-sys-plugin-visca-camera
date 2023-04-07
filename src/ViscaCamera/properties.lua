@@ -1,4 +1,16 @@
 table.insert(props, {
+  Name = "Connection",
+  Type = "enum",
+  Choices = {"RS232", "IP"},
+  Value = "RS232"
+})
+table.insert(props, {
+  Name = "Command Set",
+  Type = "enum",
+  Choices = {"VISCA", "VISCA over IP"},
+  Value = "VISCA"
+})
+table.insert(props, {
   Name = "Num Presets",
   Type = "integer",
   Value = 8,
