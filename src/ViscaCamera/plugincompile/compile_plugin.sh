@@ -14,7 +14,7 @@ then
 
   # STEP 1 Increment BuildVersion Number
   oldnum="$( grep 'BuildVersion' info.lua | cut -d $'\"' -f2 | cut -d $'\"' -f1 )"
-  echo "OldNum=$oldnum"
+  #echo $oldnum
   newnum="$oldnum"
 
   majnum=${oldnum%%.*}
@@ -65,26 +65,11 @@ then
 
   fi
 
-  echo "NewNum=$newnum"
+  #echo $newnum
   sed -i -E "s/$oldnum/$newnum/" info.lua
-
-
-  # STEP 1a(REH) Increment Version Number inline with build
-  oldver="$( grep ' Version' info.lua | cut -d $'\"' -f2 | cut -d $'\"' -f1 )"
-  echo "OldVer=$oldver"
-  newver="$oldver"
-  majver=${newnum%%.*}
-  minver=${newnum#*.}
-  minver=${minver%%.*}
-  newver="$majver.$minver"
-  echo "NewVer=$newver"
-  
-  sed -i -E "s/$oldver/$newver/" info.lua
-
 else
   echo "not updating buildversion"
 fi
-
 
 # STEP 2 Create new GUID if the plugin doesn't already have one
 oldid="$( grep 'Id' info.lua | cut -d $'\"' -f2 | cut -d $'\"' -f1 )"
