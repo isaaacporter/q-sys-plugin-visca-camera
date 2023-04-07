@@ -1,5 +1,5 @@
 local CurrentPage = PageNames[props["page_index"].Value]
-
+  
 local h1 = 20                 --Height of text elements
 local h2 = 32                 --Height of control buttons
 local w1 = 280                --Width of group boxes
@@ -36,12 +36,6 @@ if CurrentPage == "Main" then
     HTextAlign = "Left",
     Position = {0, h1},
     Size = {62, h1}
-  })
-  table.insert(graphics,{
-    Type = "Image",
-    Image = ES_logo_full,
-    Position = {177, 0},
-    Size = {102, 35}
   })
   
   -- Group boxes ------------------------------------------------------------
@@ -86,8 +80,8 @@ if CurrentPage == "Main" then
   end
 
   -- Connection -------------------------------------------------------------
-  layout["Online"] = {
-    PrettyName = "Online",
+  layout["system_online"] = {
+    PrettyName = "System~Online",
     Style = "Indicator",
     Color = {0, 255, 0},
     OffColor = {64, 0, 0},
@@ -97,48 +91,48 @@ if CurrentPage == "Main" then
     Position = {75, 50},
     Size = {h1, h1}
   }
-
-  table.insert(graphics,{
-    Type = "Text",
-    Text = "IP Address",
-    FontSize = fs1,
-    HTextAlign = "Right",
-    Position = {15, 74},
-    Size = {62, h1}
-  })
-  layout["IPAddress"] = {
-    PrettyName = "IP Address",
-    Style = "Text",
-    FontSize = fs1,
-    HTextAlign = "Center",
-    Padding = 2,
-    StrokeWidth = 1,
-    Position = {79,74},
-    Size = {100, h1}
-  }
-  
-  table.insert(graphics,{
-    Type = "Text",
-    Text = "Port",
-    FontSize = fs1,
-    HTextAlign = "Right",
-    Position = {184, 74},
-    Size = {33, h1}
-  })
-  layout["IPPort"] = {
-    PrettyName = "IP Port",
-    Style = "Text",
-    Color = Palette.White,
-    OffColor = Palette.White,
-    UnlinkOffColor = true,
-    FontSize = fs1,
-    HTextAlign = "Center",
-    Padding = 2,
-    StrokeWidth = 1,
-    Position = {219, 74},
-    Size = {44, h1}
-  }
-
+  if props["Connection"].Value == "IP" then
+    table.insert(graphics,{
+      Type = "Text",
+      Text = "IP Address",
+      FontSize = fs1,
+      HTextAlign = "Right",
+      Position = {15, 74},
+      Size = {62, h1}
+    })
+    layout["system_ip_address"] = {
+      PrettyName = "System~IP Address",
+      Style = "Text",
+      FontSize = fs1,
+      HTextAlign = "Center",
+      Padding = 2,
+      StrokeWidth = 1,
+      Position = {79,74},
+      Size = {100, h1}
+    }
+    
+    table.insert(graphics,{
+      Type = "Text",
+      Text = "Port",
+      FontSize = fs1,
+      HTextAlign = "Right",
+      Position = {184, 74},
+      Size = {33, h1}
+    })
+    layout["system_ip_port"] = {
+      PrettyName = "System~IP Port",
+      Style = "Text",
+      Color = Palette.White,
+      OffColor = Palette.White,
+      UnlinkOffColor = true,
+      FontSize = fs1,
+      HTextAlign = "Center",
+      Padding = 2,
+      StrokeWidth = 1,
+      Position = {219, 74},
+      Size = {44, h1}
+    }
+  end
   -- PTZ --------------------------------------------------------------------
   table.insert(graphics,{
     Type = "Text",
@@ -156,8 +150,8 @@ if CurrentPage == "Main" then
     Position = {17, 153},
     Size = {17, 54}
   })
-  layout["PTZ_SpeedPan"] = {
-    PrettyName = "PTZ Speed Pan",
+  layout["setup_pan_speed"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Speed",
     Style = "Text",
     FontSize = fs1,
     HTextAlign = "Center",
@@ -166,8 +160,8 @@ if CurrentPage == "Main" then
     Position = {37, 155},
     Size = {44, 18}
   }
-  layout["PTZ_SpeedTilt"] = {
-    PrettyName = "PTZ Speed Tilt",
+  layout["setup_tilt_speed"] = {
+    PrettyName = "Pan-Tilt-Zoom~Tilt Speed",
     Style = "Text",
     FontSize = fs1,
     HTextAlign = "Center",
@@ -176,8 +170,8 @@ if CurrentPage == "Main" then
     Position = {37, 173},
     Size = {44, 18}
   }
-  layout["PTZ_SpeedZoom"] = {
-    PrettyName = "PTZ Speed Zoom",
+  layout["setup_zoom_speed"] = {
+    PrettyName = "Pan-Tilt-Zoom~Zoom Speed",
     Style = "Text",
     FontSize = fs1,
     HTextAlign = "Center",
@@ -187,8 +181,8 @@ if CurrentPage == "Main" then
     Size = {44, 18}
   }
 
-  layout["PTZ_Home"] = {
-    PrettyName = "PTZ00-Home",
+  layout["preset_home_load"] = {
+    PrettyName = "Pan-Tilt-Zoom~Home",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -196,8 +190,8 @@ if CurrentPage == "Main" then
     Position = {139, 150},
     Size = {h2, h2},
   }    
-  layout["PTZ_Up"] = {
-    PrettyName = "PTZ01-Up",
+  layout["tilt_up"] = {
+    PrettyName = "Pan-Tilt-Zoom~Tilt Up",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -205,8 +199,8 @@ if CurrentPage == "Main" then
     Position = {139, 118},
     Size = {h2, h2},
   }    
-  layout["PTZ_Dn"] = {
-    PrettyName = "PTZ02-Down",
+  layout["tilt_down"] = {
+    PrettyName = "Pan-Tilt-Zoom~Tilt Down",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -214,8 +208,8 @@ if CurrentPage == "Main" then
     Position = {139, 182},
     Size = {h2, h2},
   }    
-  layout["PTZ_Lt"] = {
-    PrettyName = "PTZ03-Left",
+  layout["pan_left"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Left",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -223,8 +217,8 @@ if CurrentPage == "Main" then
     Position = {107, 150},
     Size = {h2, h2},
   }    
-  layout["PTZ_Rt"] = {
-    PrettyName = "PTZ04-Right",
+  layout["pan_right"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Right",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -232,8 +226,8 @@ if CurrentPage == "Main" then
     Position = {171, 150},
     Size = {h2, h2},
   }    
-  layout["PTZ_UpRt"] = {
-    PrettyName = "PTZ05-Up Right",
+  layout["pan_right_tilt_up"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Right / Tilt Up",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -241,8 +235,8 @@ if CurrentPage == "Main" then
     Position = {171, 118},
     Size = {h2, h2},
   }    
-  layout["PTZ_DnRt"] = {
-    PrettyName = "PTZ06-Down Right",
+  layout["pan_right_tilt_down"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Right / Tilt Down",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -250,8 +244,8 @@ if CurrentPage == "Main" then
     Position = {171, 182},
     Size = {h2, h2},
   }    
-  layout["PTZ_DnLt"] = {
-    PrettyName = "PTZ07-Down Left",
+  layout["pan_left_tilt_down"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Left / Tilt Down",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -259,17 +253,17 @@ if CurrentPage == "Main" then
     Position = {107, 182},
     Size = {h2, h2},
   }    
-  layout["PTZ_UpLt"] = {
-    PrettyName = "PTZ08-Up Left",
+  layout["pan_left_tilt_up"] = {
+    PrettyName = "Pan-Tilt-Zoom~Pan Left / Tilt Up",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
     Margin = 4,
     Position = {107, 118},
     Size = {h2, h2},
-  }    
-  layout["PTZ_In"] = {
-    PrettyName = "PTZ09-Zoom In",
+  }
+  layout["zoom_in"] = {
+    PrettyName = "Pan-Tilt-Zoom~Zoom In",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -277,8 +271,8 @@ if CurrentPage == "Main" then
     Position = {235, 133},
     Size = {h2, h2},
   }    
-  layout["PTZ_Out"] = {
-    PrettyName = "PTZ10-Zoom Out",
+  layout["zoom_out"] = {
+    PrettyName = "Pan-Tilt-Zoom~Zoom Out",
     Legend = "",
     Style = "Button",
     Color = Palette.es_blue,
@@ -289,8 +283,8 @@ if CurrentPage == "Main" then
 
   -- Presets ----------------------------------------------------------------
   
-  layout["PresetSaved"] = {
-  PrettyName = "Preset Saved",
+  layout["preset_saved"] = {
+  PrettyName = "Preset~Preset Saved",
   Style = "Indicator",
   Color = {255, 0, 0},
   OffColor = {16, 0, 0},
@@ -305,8 +299,8 @@ if CurrentPage == "Main" then
     local row = 1 + math.floor(pst / 8)
     local col = 1 + (pst % 8)
 
-    layout["Preset_Recall " .. string.format("%03d",pst)] = {
-      PrettyName = "Recall P" .. string.format("%03d", pst),
+    layout["preset_recall_" .. string.format("%03d",pst)] = {
+      PrettyName = "Preset~Recall P" .. string.format("%03d", pst),
       Style = "Button",
       Margin = 4,
       Color = Palette.Green,
@@ -317,8 +311,8 @@ if CurrentPage == "Main" then
     }
 
     if props["Preset Hold Save"].Value == false then
-      layout["Preset_Save " .. string.format("%03d",pst)] = {
-        PrettyName = "Save P" .. string.format("%03d", pst),
+      layout["preset_save_" .. string.format("%03d",pst)] = {
+        PrettyName = "Preset~Save P" .. string.format("%03d", pst),
         Style = "Button",
         Margin = 4,
         Color = Palette.Red,
