@@ -2,8 +2,8 @@
 PluginInfo = {
   Name = "Cameras~VISCA",
   Description = "VISCA Camera with IP/RS232 Control",
-  Version = "2.0.0.0",
-  BuildVersion = "2.0.0.0",
+  Version = "2.1.0.0",
+  BuildVersion = "2.1.0.0",
   Id = "7c307beb-8afc-4029-9f5d-674baa4bd89d",
   Author = "Extrasolve, Isaac Porter",
 } 
@@ -301,7 +301,6 @@ function GetControls(props)
       PinStyle = "Input",
       IconType = "SVG",
       Icon = Icon_Arrow_UpRt
-      --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow UpRight.svg does not exist"
     })
     
     table.insert(ctrls, {
@@ -313,7 +312,6 @@ function GetControls(props)
       PinStyle = "Input",
       IconType = "SVG",
       Icon = Icon_Arrow_DnRt
-      --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow DownRight.svg does not exist"
     })
     
     table.insert(ctrls, {
@@ -325,7 +323,6 @@ function GetControls(props)
       PinStyle = "Input",
       IconType = "SVG",
       Icon = Icon_Arrow_DnLt
-      --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow DownLeft.svg does not exist"
     })
     
     table.insert(ctrls, {
@@ -337,7 +334,6 @@ function GetControls(props)
       PinStyle = "Input",
       IconType = "SVG",
       Icon = Icon_Arrow_UpLt
-      --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow UpLeft.svg does not exist"
     })
     
     table.insert(ctrls, {
@@ -358,6 +354,24 @@ function GetControls(props)
       UserPin = true,
       PinStyle = "Input",
       Icon = "Zoom Out"
+    })
+  
+    table.insert(ctrls, {
+      Name = "tracking_on",
+      ControlType = "Button",
+      ButtonType = "Momentary",
+      Count = 1,
+      UserPin = true,
+      PinStyle = "Input"
+    })
+    
+    table.insert(ctrls, {
+      Name = "tracking_off",
+      ControlType = "Button",
+      ButtonType = "Momentary",
+      Count = 1,
+      UserPin = true,
+      PinStyle = "Input"
     })
     
     -- Presets ------------------------------------------------------------------
@@ -668,12 +682,30 @@ function GetControlLayout(props)
       Style = "Button",
       Color = Palette.es_blue,
       Margin = 4,
-      Position = {235, 133},
+      Position = {203, 133},
       Size = {h2, h2},
     }    
     layout["zoom_out"] = {
       PrettyName = "Pan-Tilt-Zoom~Zoom Out",
       Legend = "",
+      Style = "Button",
+      Color = Palette.es_blue,
+      Margin = 4,
+      Position = {203, 165},
+      Size = {h2, h2},
+    }   
+    layout["tracking_on"] = {
+      PrettyName = "Tracking~On",
+      Legend = "Track\nOn",
+      Style = "Button",
+      Color = Palette.es_blue,
+      Margin = 4,
+      Position = {235, 133},
+      Size = {h2, h2},
+    }    
+    layout["tracking_off"] = {
+      PrettyName = "Tracking~Off",
+      Legend = "Track\nOff",
       Style = "Button",
       Color = Palette.es_blue,
       Margin = 4,
@@ -963,8 +995,10 @@ if Controls then
   
     elseif func == "pan_tilt_stop"        then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
     elseif func == "zoom_stop"            then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,0x00,0xff))
-    end
   
+    elseif func == "tracking_on"          then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x02,0xff))
+    elseif func == "tracking_off"         then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x03,0xff))
+    end
   end
   
   
@@ -1003,6 +1037,7 @@ if Controls then
     elseif string.sub(key, 1, 4) == "pan_" or
             string.sub(key, 1, 5) == "tilt_" or
             string.sub(key, 1, 5) == "zoom_" or
+            string.sub(key, 1, 9) == "tracking_" or
             key == "preset_home_load" then
       val.EventHandler = function(ctl)
         if ctl.Boolean == true then
@@ -1012,7 +1047,7 @@ if Controls then
                 key == "zoom_out" then
           PTZ_Control("zoom_stop")
   
-        elseif key ~= "preset_home_load" then
+        elseif key ~= "preset_home_load" and (string.sub(key, 1, 9) ~= "tracking_") then
           PTZ_Control("pan_tilt_stop")
         end
       end
