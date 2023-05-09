@@ -231,8 +231,10 @@ function PTZ_Control(func)
 
   elseif func == "pan_tilt_stop"        then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
   elseif func == "zoom_stop"            then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,0x00,0xff))
-  end
 
+  elseif func == "tracking_on"          then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x02,0xff))
+  elseif func == "tracking_off"         then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x03,0xff))
+  end
 end
 
 
@@ -271,6 +273,7 @@ for key, val in pairs(Controls) do
   elseif string.sub(key, 1, 4) == "pan_" or
           string.sub(key, 1, 5) == "tilt_" or
           string.sub(key, 1, 5) == "zoom_" or
+          string.sub(key, 1, 9) == "tracking_" or
           key == "preset_home_load" then
     val.EventHandler = function(ctl)
       if ctl.Boolean == true then
@@ -280,7 +283,7 @@ for key, val in pairs(Controls) do
               key == "zoom_out" then
         PTZ_Control("zoom_stop")
 
-      elseif key ~= "preset_home_load" then
+      elseif key ~= "preset_home_load" and (string.sub(key, 1, 9) ~= "tracking_") then
         PTZ_Control("pan_tilt_stop")
       end
     end

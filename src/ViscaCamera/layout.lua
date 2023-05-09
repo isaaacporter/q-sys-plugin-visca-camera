@@ -268,12 +268,30 @@ if CurrentPage == "Main" then
     Style = "Button",
     Color = Palette.es_blue,
     Margin = 4,
-    Position = {235, 133},
+    Position = {203, 133},
     Size = {h2, h2},
   }    
   layout["zoom_out"] = {
     PrettyName = "Pan-Tilt-Zoom~Zoom Out",
     Legend = "",
+    Style = "Button",
+    Color = Palette.es_blue,
+    Margin = 4,
+    Position = {203, 165},
+    Size = {h2, h2},
+  }   
+  layout["tracking_on"] = {
+    PrettyName = "Tracking~On",
+    Legend = "Track\nOn",
+    Style = "Button",
+    Color = Palette.es_blue,
+    Margin = 4,
+    Position = {235, 133},
+    Size = {h2, h2},
+  }    
+  layout["tracking_off"] = {
+    PrettyName = "Tracking~Off",
+    Legend = "Track\nOff",
     Style = "Button",
     Color = Palette.es_blue,
     Margin = 4,

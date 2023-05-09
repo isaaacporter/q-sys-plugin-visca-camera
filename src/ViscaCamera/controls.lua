@@ -126,7 +126,6 @@ local ctrls = {}
     PinStyle = "Input",
     IconType = "SVG",
     Icon = Icon_Arrow_UpRt
-    --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow UpRight.svg does not exist"
   })
   
   table.insert(ctrls, {
@@ -138,7 +137,6 @@ local ctrls = {}
     PinStyle = "Input",
     IconType = "SVG",
     Icon = Icon_Arrow_DnRt
-    --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow DownRight.svg does not exist"
   })
   
   table.insert(ctrls, {
@@ -150,7 +148,6 @@ local ctrls = {}
     PinStyle = "Input",
     IconType = "SVG",
     Icon = Icon_Arrow_DnLt
-    --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow DownLeft.svg does not exist"
   })
   
   table.insert(ctrls, {
@@ -162,7 +159,6 @@ local ctrls = {}
     PinStyle = "Input",
     IconType = "SVG",
     Icon = Icon_Arrow_UpLt
-    --Icon = "File C:\Users\rehil\Dropbox\#DATA\QSC\Plugins\VISCA_IP\graphics\Arrow UpLeft.svg does not exist"
   })
   
   table.insert(ctrls, {
@@ -183,6 +179,24 @@ local ctrls = {}
     UserPin = true,
     PinStyle = "Input",
     Icon = "Zoom Out"
+  })
+
+  table.insert(ctrls, {
+    Name = "tracking_on",
+    ControlType = "Button",
+    ButtonType = "Momentary",
+    Count = 1,
+    UserPin = true,
+    PinStyle = "Input"
+  })
+  
+  table.insert(ctrls, {
+    Name = "tracking_off",
+    ControlType = "Button",
+    ButtonType = "Momentary",
+    Count = 1,
+    UserPin = true,
+    PinStyle = "Input"
   })
   
   -- Presets ------------------------------------------------------------------
