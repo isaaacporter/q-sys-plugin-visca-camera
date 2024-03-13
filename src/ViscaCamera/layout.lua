@@ -48,8 +48,8 @@ if CurrentPage == "Main" then
     StrokeColor = Palette.Black,
     StrokeWidth = 1,
     CornerRadius = 8,
-    Position = {0, 50},
-    Size = {w1, 52}
+    Position = {0, 40},
+    Size = {w1, 62}
   })
   table.insert(graphics,{
     Type = "GroupBox",
@@ -88,7 +88,7 @@ if CurrentPage == "Main" then
     UnlinkOffColor = true,
     StrokeWidth = 1,
     Margin = 4,
-    Position = {75, 50},
+    Position = {75, 40},
     Size = {h1, h1}
   }
   if props["Connection"].Value == "IP" then
@@ -130,6 +130,27 @@ if CurrentPage == "Main" then
       Padding = 2,
       StrokeWidth = 1,
       Position = {219, 74},
+      Size = {44, h1}
+    }
+    table.insert(graphics,{
+      Type = "Text",
+      Text = "ID",
+      FontSize = fs1,
+      HTextAlign = "Right",
+      Position = {184, 54},
+      Size = {33, h1}
+    })
+    layout["setup_camera_id"] = {
+      PrettyName = "Camera-ID",
+      Style = "Text",
+      Color = Palette.White,
+      OffColor = Palette.White,
+      UnlinkOffColor = true,
+      FontSize = fs1,
+      HTextAlign = "Center",
+      Padding = 2,
+      StrokeWidth = 1,
+      Position = {219, 54},
       Size = {44, h1}
     }
   end
