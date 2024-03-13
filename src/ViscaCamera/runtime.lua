@@ -213,27 +213,29 @@ function PTZ_Control(func)
 
   local PS = PanSpeed
   local TS = TiltSpeed
+  local ID = Controls["setup_camera_id"].Value + 128
 
-  if     func == "preset_home_load"     then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x04,0xff))
 
-  elseif func == "tilt_up"              then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x01,0xff))
-  elseif func == "tilt_down"            then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x03,0x02,0xff))
-  elseif func == "pan_left"             then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x03,0xff))
-  elseif func == "pan_right"            then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x03,0xff))
+  if     func == "preset_home_load"     then  VISCA("Cmd", string.char(ID,0x01,0x06,0x04,0xff))
 
-  elseif func == "pan_right_tilt_up"    then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x01,0xff))
-  elseif func == "pan_right_tilt_down"  then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x02,0x02,0xff))
-  elseif func == "pan_left_tilt_down"   then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x02,0xff))
-  elseif func == "pan_left_tilt_up"     then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,PS,TS,0x01,0x01,0xff))
+  elseif func == "tilt_up"              then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x03,0x01,0xff))
+  elseif func == "tilt_down"            then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x03,0x02,0xff))
+  elseif func == "pan_left"             then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x01,0x03,0xff))
+  elseif func == "pan_right"            then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x02,0x03,0xff))
 
-  elseif func == "zoom_in"              then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x20 + ZoomSpeed),0xff))
-  elseif func == "zoom_out"             then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,(0x30 + ZoomSpeed),0xff))
+  elseif func == "pan_right_tilt_up"    then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x02,0x01,0xff))
+  elseif func == "pan_right_tilt_down"  then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x02,0x02,0xff))
+  elseif func == "pan_left_tilt_down"   then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x01,0x02,0xff))
+  elseif func == "pan_left_tilt_up"     then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,PS,TS,0x01,0x01,0xff))
 
-  elseif func == "pan_tilt_stop"        then  VISCA("Cmd", string.char(0x81,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
-  elseif func == "zoom_stop"            then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x07,0x00,0xff))
+  elseif func == "zoom_in"              then  VISCA("Cmd", string.char(ID,0x01,0x04,0x07,(0x20 + ZoomSpeed),0xff))
+  elseif func == "zoom_out"             then  VISCA("Cmd", string.char(ID,0x01,0x04,0x07,(0x30 + ZoomSpeed),0xff))
 
-  elseif func == "tracking_on"          then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x02,0xff))
-  elseif func == "tracking_off"         then  VISCA("Cmd", string.char(0x81,0x01,0x04,0x35,0x03,0xff))
+  elseif func == "pan_tilt_stop"        then  VISCA("Cmd", string.char(ID,0x01,0x06,0x01,0x00,0x00,0x03,0x03,0xff))
+  elseif func == "zoom_stop"            then  VISCA("Cmd", string.char(ID,0x01,0x04,0x07,0x00,0xff))
+
+  elseif func == "tracking_on"          then  VISCA("Cmd", string.char(ID,0x01,0x04,0x35,0x02,0xff))
+  elseif func == "tracking_off"         then  VISCA("Cmd", string.char(ID,0x01,0x04,0x35,0x03,0xff))
   end
 end
 
@@ -249,11 +251,12 @@ PresetSaveTimer.EventHandler = PresetSaveTimerHandler
 
 function Preset(func, pst)
   print("Preset ".. pst .. " " .. func)
+  local ID = Controls["setup_camera_id"].Value + 128
 
   if func == "Recall" then
-    VISCA("Cmd", string.char(0x81,0x01,0x04,0x3F,0x02,pst,0xff))
+    VISCA("Cmd", string.char(ID,0x01,0x04,0x3F,0x02,pst,0xff))
   elseif func == "Save" then
-    VISCA("Cmd", string.char(0x81,0x01,0x04,0x3F,0x01,pst,0xff))
+    VISCA("Cmd", string.char(ID,0x01,0x04,0x3F,0x01,pst,0xff))
     Controls["preset_saved"].Boolean = true
     PresetSaveTimer:Start(0.5)
   end
@@ -337,7 +340,7 @@ PresetHoldTimer.EventHandler = PresetHoldTimerHandler
 --Comms polling and timeout ------------------------------
 CommsPollTimer = Timer.New()
 function CommsPoll()
-  VISCA("Inq", string.char(0x81,0x09,0x00,0x02,0xFF))
+  VISCA("Inq", string.char(Controls["setup_camera_id"].Value + 128,0x09,0x00,0x02,0xFF))
   --print('Polling')
 end
 CommsPollTimer.EventHandler = CommsPoll

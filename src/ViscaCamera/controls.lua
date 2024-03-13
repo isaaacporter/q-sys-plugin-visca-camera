@@ -34,6 +34,17 @@ local ctrls = {}
   
   -- PTZ ----------------------------------------------------------------------
   table.insert(ctrls, {
+    Name = "setup_camera_id",
+    ControlType = "Knob",
+    ControlUnit = "Integer",
+    Min = 1,
+    Max = 7,
+    DefaultValue = 1,
+    UserPin = true,
+    PinStyle = "Both",
+    Count = 1
+  })
+  table.insert(ctrls, {
     Name = "setup_pan_speed",
     ControlType = "Knob",
     ControlUnit = "Integer",
