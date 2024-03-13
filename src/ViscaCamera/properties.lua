@@ -1,7 +1,7 @@
 table.insert(props, {
   Name = "Connection",
   Type = "enum",
-  Choices = {"RS232", "IP"},
+  Choices = {"RS232", "UDP", "TCP"},
   Value = "RS232"
 })
 table.insert(props, {

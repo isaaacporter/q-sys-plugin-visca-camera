@@ -1,8 +1,13 @@
  --vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv UDP vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
   
 -- Sockets
-if Properties["Connection"].Value == "IP" then
+if Properties["Connection"].Value == "UDP" then
   Connection = UdpSocket.New()  -- Create new UdpSocket object
+elseif Properties["Connection"].Value == "TCP" then
+  Connection = TcpSocket.New()
+  Connection.ReadTimeout = 0
+  Connection.WriteTimeout = 0
+  Connection.ReconnectTimeout = 5
 elseif Properties["Connection"].Value == "RS232" then
   Connection = SerialPorts[1]
 end
@@ -76,14 +81,18 @@ function Send(command)
   if DebugFunction then print("Send() Called") end
   if ConnectionOpen then
     if DebugRx then print("Sending " .. command)  end
-    if Properties["Connection"].Value == "IP" then
-      Connection:Send(IPAddress, Port, command)  -- Write command to the UDP socket
+
+    if Properties["Connection"].Value == "UDP" then
+      Connection:Send(IPAddress, Port, command)
+    elseif Properties["Connection"].Value == "TCP" then
+      Connection:Write(command)
     elseif Properties["Connection"].Value == "RS232" then
       Connection:Write(command)
     end
+
   else
     --If the socket is closed, open it and try again
-    OpenSocket()
+    Initialize()
     Send(command)
   end
 end
@@ -101,7 +110,7 @@ end
 
 -- Parsers
 -- UDP Data event is called when data is received on the port, either targeted at the local address or from a multicast network.
-if Properties["Connection"].Value == "IP" then
+if Properties["Connection"].Value == "UDP" then
   Connection.Data = function(socket, packet)
     if DebugFunction then print("UDP Data Eventhandler Called") end
     if DebugRx then print("Address: " .. packet.Address, "Port: " .. packet.Port, "Rx: " .. packet.Data)  end
@@ -111,6 +120,19 @@ if Properties["Connection"].Value == "IP" then
       Controls["system_online"].Boolean = true
       CommsTimeoutTimer:Start(PollInteval * 2.5)
     end
+  end
+elseif Properties["Connection"].Value == "TCP" then
+  Connection.Data = function(socket)
+    if DebugFunction then print("TCP Data Eventhandler Called") end
+    if DebugRx then print("Address: " .. packet.Address, "Port: " .. packet.Port, "Rx: " .. packet.Data)  end
+  end
+  Connection.Connected = function()
+    Controls["system_online"].Boolean = true
+    ConnectionOpen = true
+  end
+  Connection.Closed = function()
+    Controls["system_online"].Boolean = false
+    ConnectionOpen = false
   end
 elseif Properties["Connection"].Value == "RS232" then
   Connection.Data = function(port)
@@ -137,10 +159,14 @@ function Initialize()
     Close()
   end
 
-  if Properties["Connection"].Value == "IP" then
+  if Properties["Connection"].Value == "UDP" then
     if IPAddress.String ~= "" then
       SelectNIC()                       -- Choose the correct NIC for communication
       OpenSocket()                      -- Create the local UDP Socket for use
+    end
+  elseif Properties["Connection"].Value == "TCP" then
+    if IPAddress.String ~= "" then
+      Connection:Connect(IPAddress, Port)                     
     end
   elseif Properties["Connection"].Value == "RS232" then
     Connection:Open(9600, 8, "N")

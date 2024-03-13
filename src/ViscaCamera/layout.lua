@@ -91,7 +91,7 @@ if CurrentPage == "Main" then
     Position = {75, 40},
     Size = {h1, h1}
   }
-  if props["Connection"].Value == "IP" then
+  if props["Connection"].Value == "UDP" or props["Connection"].Value == "TCP" then
     table.insert(graphics,{
       Type = "Text",
       Text = "IP Address",
@@ -132,28 +132,28 @@ if CurrentPage == "Main" then
       Position = {219, 74},
       Size = {44, h1}
     }
-    table.insert(graphics,{
-      Type = "Text",
-      Text = "ID",
-      FontSize = fs1,
-      HTextAlign = "Right",
-      Position = {184, 54},
-      Size = {33, h1}
-    })
-    layout["setup_camera_id"] = {
-      PrettyName = "Camera-ID",
-      Style = "Text",
-      Color = Palette.White,
-      OffColor = Palette.White,
-      UnlinkOffColor = true,
-      FontSize = fs1,
-      HTextAlign = "Center",
-      Padding = 2,
-      StrokeWidth = 1,
-      Position = {219, 54},
-      Size = {44, h1}
-    }
   end
+  table.insert(graphics,{
+    Type = "Text",
+    Text = "ID",
+    FontSize = fs1,
+    HTextAlign = "Right",
+    Position = {184, 54},
+    Size = {33, h1}
+  })
+  layout["setup_camera_id"] = {
+    PrettyName = "Camera-ID",
+    Style = "Text",
+    Color = Palette.White,
+    OffColor = Palette.White,
+    UnlinkOffColor = true,
+    FontSize = fs1,
+    HTextAlign = "Center",
+    Padding = 2,
+    StrokeWidth = 1,
+    Position = {219, 54},
+    Size = {44, h1}
+  }
   -- PTZ --------------------------------------------------------------------
   table.insert(graphics,{
     Type = "Text",
